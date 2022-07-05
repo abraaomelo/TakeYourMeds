@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Take Your Meds</string>
+
+    <!-- MAIN SCREEN EMPTY -->
+    <string name="str_addNewMed">Add new Medicine</string>
+
+    <!-- MAIN SCREEN EMPTY MENU -->
+    <string name="str_language">Language</string>
+    <string name="str_theme">Themes</string>
+    <string name="str_about">About</string>
+</resources>

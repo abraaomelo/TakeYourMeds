@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/str_language"
+        android:id="@+id/menuit_language"
+        />
+
+    <item
+        android:title="@string/str_theme"
+        android:id="@+id/menuit_theme"
+        />
+
+    <item
+        android:title="@string/str_about"
+        android:id="@+id/menuit_about"
+        />
+
+</menu>
