@@ -16,8 +16,6 @@ public class MedicineDAO {
     }
 
     public long med_Create(Medicine medicine){
-        Medicine medicie = new Medicine();
-        medicie.setMedName("teste");
         ContentValues values = new ContentValues();
         values.put("med_name", medicine.getMedName());
         return db.insert("medicine", null, values);
