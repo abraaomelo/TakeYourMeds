@@ -3,7 +3,9 @@ package com.example.takeyourmeds;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import java.io.*;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,11 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn_NewMedMain;
     private String str_MedName;
+    private MedicineDAO mdao;
+    private Medicine medicine = null;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("Criou");
 
         btn_NewMedMain = findViewById(R.id.btn_NewMedMain);
 
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         str_MedName = medInput.getText().toString();
                         Toast.makeText(MainActivity.this, "Medicine's name is: "+str_MedName, Toast.LENGTH_LONG).show();
+                        medSave();
                     }
                 });
 
@@ -79,4 +86,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public  void medSave(){
+        mdao = new MedicineDAO(this);
+        medicine = new Medicine();
+        medicine.setMedName(str_MedName);
+
+        mdao.med_Create(medicine);
+    }
+
+
 }
