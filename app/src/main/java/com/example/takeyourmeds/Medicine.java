@@ -19,4 +19,9 @@ public class Medicine {
     public void setMedName(String medName) {
         this.medName = medName;
     }
+
+    @Override
+    public String toString() {
+        return medName;
+    }
 }

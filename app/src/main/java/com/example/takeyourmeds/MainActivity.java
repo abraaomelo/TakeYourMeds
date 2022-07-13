@@ -7,6 +7,7 @@ import java.io.*;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_NewMedMain;
+    private Button btn_NewMedMain, btn_ListData;
     private String str_MedName;
     private MedicineDAO mdao;
     private Medicine medicine = null;
@@ -28,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("Criou");
 
         btn_NewMedMain = findViewById(R.id.btn_NewMedMain);
+        btn_ListData = findViewById(R.id.btn_ListData);
 
         btn_NewMedMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_ListData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openListMedActvt();
+               // Toast.makeText(MainActivity.this, "clicked list", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -92,7 +100,13 @@ public class MainActivity extends AppCompatActivity {
         medicine = new Medicine();
         medicine.setMedName(str_MedName);
 
-        mdao.med_Create(medicine);
+        long id = mdao.med_Create(medicine);
+        Toast.makeText(this, "Saved with ID: "+id, Toast.LENGTH_SHORT).show();
+    }
+
+    public void openListMedActvt(){
+        Intent i = new Intent(this,ListMedicines.class);
+        startActivity(i);
     }
 
 
