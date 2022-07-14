@@ -3,8 +3,11 @@ package com.example.takeyourmeds;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import java.io.*;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -16,8 +19,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_NewMedMain;
+    private Button btn_NewMedMain, btn_ListData;
     private String str_MedName;
+    private MedicineDAO mdao;
+    private Medicine medicine = null;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btn_NewMedMain = findViewById(R.id.btn_NewMedMain);
+        btn_ListData = findViewById(R.id.btn_ListData);
 
         btn_NewMedMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         str_MedName = medInput.getText().toString();
                         Toast.makeText(MainActivity.this, "Medicine's name is: "+str_MedName, Toast.LENGTH_LONG).show();
+                        medSave();
                     }
                 });
 
@@ -55,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_ListData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openListMedActvt();
+               // Toast.makeText(MainActivity.this, "clicked list", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -79,4 +94,20 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public  void medSave(){
+        mdao = new MedicineDAO(this);
+        medicine = new Medicine();
+        medicine.setMedName(str_MedName);
+
+        long id = mdao.med_Create(medicine);
+        Toast.makeText(this, "Saved with ID: "+id, Toast.LENGTH_SHORT).show();
+    }
+
+    public void openListMedActvt(){
+        Intent i = new Intent(this,ListMedicines.class);
+        startActivity(i);
+    }
+
+
 }
